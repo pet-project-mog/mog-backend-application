@@ -52,7 +52,7 @@
             <id>generate-container</id>
             <activation>
                 <property>
-                    <name>env.DOCKER_HOST</name>
+                    <name>env.DOCKER_INTEGRATION</name>
                 </property>
             </activation>
             <build>
