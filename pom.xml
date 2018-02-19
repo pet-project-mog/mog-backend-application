@@ -55,6 +55,11 @@
                     <name>env.DOCKER_INTEGRATION</name>
                 </property>
             </activation>
+
+            <properties>
+                <mog.docker.currentTag>OVERRIDE_THIS_TAG_VIA_COMMAND_LINE</mog.docker.currentTag>
+            </properties>
+
             <build>
                 <plugins>
                     <plugin>
@@ -86,7 +91,7 @@
                                 </goals>
 
                                 <configuration>
-                                    <tag>${env.MOG_DOCKER_IMAGE_VERSION}</tag>
+                                    <tag>${mog.docker.currentTag}</tag>
 
                                     <buildArgs>
                                         <JAR_FILE>target/${project.build.finalName}.jar</JAR_FILE>
