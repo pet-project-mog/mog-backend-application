@@ -1,4 +1,4 @@
-package br.com.caelum.mog.application.controllers;
+package br.com.caelum.mog.integrations.controllers;
 
 
 import br.com.caelum.mog.domain.models.Curso;
