@@ -3,15 +3,16 @@ package br.com.caelum.mog.integrations.controllers;
 
 import br.com.caelum.mog.domain.models.Curso;
 import br.com.caelum.mog.domain.repositories.CursoRepository;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -24,11 +25,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@RunWith(SpringRunner.class)
 @AutoConfigureMockMvc
 @AutoConfigureTestDatabase
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
-public class CursoControllerTest {
+@ExtendWith(SpringExtension.class)
+class CursoControllerTest {
 
 
     @Autowired
@@ -39,8 +40,8 @@ public class CursoControllerTest {
 
 
 
-    @Before
-    public void setup(){
+    @BeforeEach
+    void setup(){
         repository.save(new Curso("Java e Orientação a objetos", new BigDecimal("2290"), Duration.ofHours(40)));
         repository.save(new Curso("Java para Desenvolvimento web", new BigDecimal("2890"), Duration.ofHours(40)));
     }
@@ -48,9 +49,7 @@ public class CursoControllerTest {
 
 
     @Test
-    public void deveSerPossivelRetornarTodosOsCursos() throws Exception{
-
-
+    void deveSerPossivelRetornarTodosOsCursos() throws Exception{
 
         mvc.perform(get("/cursos")
                         .accept(MediaType.APPLICATION_JSON))
@@ -68,8 +67,7 @@ public class CursoControllerTest {
 
 
     @Test
-    public void deveSerPossivelRetornarUmCursoAtravesDoId() throws Exception {
-
+    void deveSerPossivelRetornarUmCursoAtravesDoId() throws Exception {
 
         mvc.perform(get("/cursos/{id}", 1)
                 .accept(MediaType.APPLICATION_JSON))
@@ -83,7 +81,7 @@ public class CursoControllerTest {
 
 
     @Test
-    public void deveSerRetornadoNotFoundQuandoEnviadoUmIdInvalido() throws Exception {
+    void deveSerRetornadoNotFoundQuandoEnviadoUmIdInvalido() throws Exception {
 
         mvc.perform(    get("/cursos/{id}", 123)
                             .accept(MediaType.APPLICATION_JSON))
